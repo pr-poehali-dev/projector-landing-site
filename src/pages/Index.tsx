@@ -21,7 +21,7 @@ const Index = () => {
         <div
           className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-primary/10"
           style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/files/dcd485fc-f845-498c-8ba8-0a39ddd1100c.jpg)',
+            backgroundImage: 'url(https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/0b60b47a-a2d8-4888-8747-58960ff0dc74.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(8px)',
@@ -101,7 +101,7 @@ const Index = () => {
             <Card className="hover-lift overflow-hidden border-none shadow-lg">
               <div className="relative h-64">
                 <img
-                  src="https://cdn.poehali.dev/files/c20e69a3-6e38-433e-af8c-4284612b3fe7.jpg"
+                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/7c43c9ba-1705-4a4f-8e31-f5cdda2b3613.jpg"
                   alt="Дефиле"
                   className="w-full h-full object-cover"
                 />
@@ -113,7 +113,7 @@ const Index = () => {
             <Card className="hover-lift overflow-hidden border-none shadow-lg">
               <div className="relative h-64">
                 <img
-                  src="https://cdn.poehali.dev/files/c20e69a3-6e38-433e-af8c-4284612b3fe7.jpg"
+                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/89414f56-7c5c-44f9-9c95-36742eb66f8b.jpg"
                   alt="Фотоконкурс"
                   className="w-full h-full object-cover"
                 />
@@ -125,7 +125,7 @@ const Index = () => {
             <Card className="hover-lift overflow-hidden border-none shadow-lg">
               <div className="relative h-64">
                 <img
-                  src="https://cdn.poehali.dev/files/5b49d16a-7780-4ab8-838a-f103836e3e53.jpg"
+                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/021d5352-b4ca-448a-85f5-2a643368c584.jpg"
                   alt="Креативный образ"
                   className="w-full h-full object-cover"
                 />
@@ -137,7 +137,7 @@ const Index = () => {
             <Card className="hover-lift overflow-hidden border-none shadow-lg">
               <div className="relative h-64">
                 <img
-                  src="https://cdn.poehali.dev/files/5b49d16a-7780-4ab8-838a-f103836e3e53.jpg"
+                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/247cc373-8743-4573-a438-ec2b2e6aeebc.jpg"
                   alt="Артистизм"
                   className="w-full h-full object-cover"
                 />
@@ -209,12 +209,12 @@ const Index = () => {
           <h2 className="text-4xl font-bold text-center mb-16">Галерея звезд</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
             {[
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
-              'https://cdn.poehali.dev/files/e143910c-e081-47fe-87dd-70486ef27e1d.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/08a6ff31-5073-496c-acaa-1e33803966af.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/4fac7335-00d9-4479-bc5f-caac87f86272.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/64c7fa26-66af-43ac-a2b4-89b06b59afae.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/f4607f9e-43b4-4926-9dc2-66d6d716718d.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/82eb0d67-18c6-4ae0-8ebc-a970259af1cb.jpg',
+              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/7c43c9ba-1705-4a4f-8e31-f5cdda2b3613.jpg',
             ].map((img, idx) => (
               <div
                 key={idx}
