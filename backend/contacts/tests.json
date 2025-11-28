@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Create contact message",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test User",
+        "email": "test@example.com",
+        "message": "Hello, I have a question"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "id": "number",
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

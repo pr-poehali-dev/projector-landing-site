@@ -20,19 +20,43 @@ const RegistrationForm = () => {
     );
   };
 
-  const handleRegistrationSubmit = (e: React.FormEvent) => {
+  const handleRegistrationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !phone || !age || contests.length === 0) {
       toast.error('Заполните все обязательные поля');
       return;
     }
-    toast.success('Заявка успешно отправлена!');
-    setFullName('');
-    setPhone('');
-    setAge('');
-    setContests([]);
-    setPhotoFile(null);
-    setMusicFile(null);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/fa394409-631e-4cf4-af38-ea49853be627', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          phone,
+          age: parseInt(age),
+          contests,
+          photoUrl: photoFile ? photoFile.name : null,
+          musicUrl: musicFile ? musicFile.name : null,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке заявки');
+      }
+
+      toast.success('Заявка успешно отправлена!');
+      setFullName('');
+      setPhone('');
+      setAge('');
+      setContests([]);
+      setPhotoFile(null);
+      setMusicFile(null);
+    } catch (error) {
+      toast.error('Не удалось отправить заявку. Попробуйте позже.');
+    }
   };
 
   return (

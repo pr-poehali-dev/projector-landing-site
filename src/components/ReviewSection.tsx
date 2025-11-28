@@ -12,16 +12,37 @@ const ReviewSection = () => {
   const [reviewText, setReviewText] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
 
-  const handleReviewSubmit = (e: React.FormEvent) => {
+  const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!reviewName || !reviewText || reviewRating === 0) {
       toast.error('Заполните все поля отзыва');
       return;
     }
-    toast.success('Спасибо за ваш отзыв!');
-    setReviewName('');
-    setReviewText('');
-    setReviewRating(0);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/bd7d04d0-fe1c-4852-89fa-16d1df6ab898', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: reviewName,
+          rating: reviewRating,
+          reviewText,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке отзыва');
+      }
+
+      toast.success('Спасибо за ваш отзыв!');
+      setReviewName('');
+      setReviewText('');
+      setReviewRating(0);
+    } catch (error) {
+      toast.error('Не удалось отправить отзыв. Попробуйте позже.');
+    }
   };
 
   return (

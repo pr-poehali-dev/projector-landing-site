@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "Create review",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test Reviewer",
+        "rating": 5,
+        "reviewText": "Great contest!"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "id": "number",
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get all reviews",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}

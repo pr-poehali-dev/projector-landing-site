@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Create application",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "fullName": "Test User",
+        "phone": "+7 999 123-45-67",
+        "age": 25,
+        "contests": ["Дефиле", "Фотоконкурс"]
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "id": "number",
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get all applications (unauthorized)",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

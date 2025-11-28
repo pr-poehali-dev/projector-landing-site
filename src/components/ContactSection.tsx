@@ -12,16 +12,37 @@ const ContactSection = () => {
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactName || !contactEmail || !contactMessage) {
       toast.error('Заполните все поля формы');
       return;
     }
-    toast.success('Сообщение отправлено!');
-    setContactName('');
-    setContactEmail('');
-    setContactMessage('');
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/4340451b-bebd-479b-a18f-d2d2e28aee4e', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: contactName,
+          email: contactEmail,
+          message: contactMessage,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке сообщения');
+      }
+
+      toast.success('Сообщение отправлено!');
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+    } catch (error) {
+      toast.error('Не удалось отправить сообщение. Попробуйте позже.');
+    }
   };
 
   return (
