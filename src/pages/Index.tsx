@@ -6,8 +6,37 @@ import Header from '@/components/Header';
 import RegistrationForm from '@/components/RegistrationForm';
 import ReviewSection from '@/components/ReviewSection';
 import ContactSection from '@/components/ContactSection';
+import { useState, useEffect } from 'react';
+
+interface Category {
+  id: number;
+  title: string;
+  image_url: string;
+  description?: string;
+}
+
+interface GalleryImage {
+  id: number;
+  image_url: string;
+  title?: string;
+}
 
 const Index = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
+  
+  useEffect(() => {
+    fetch('https://functions.poehali.dev/33f9ba55-b73d-4487-b00a-6243568e3d6d?type=categories')
+      .then(res => res.json())
+      .then(data => setCategories(data))
+      .catch(err => console.error('Error loading categories:', err));
+    
+    fetch('https://functions.poehali.dev/33f9ba55-b73d-4487-b00a-6243568e3d6d?type=gallery')
+      .then(res => res.json())
+      .then(data => setGallery(data))
+      .catch(err => console.error('Error loading gallery:', err));
+  }, []);
+  
   const scrollToRegistration = () => {
     const element = document.getElementById('registration');
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -98,53 +127,19 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16">Категории конкурса</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="hover-lift overflow-hidden border-none shadow-lg">
-              <div className="relative h-64">
-                <img
-                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/7c43c9ba-1705-4a4f-8e31-f5cdda2b3613.jpg"
-                  alt="Дефиле"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-3xl font-bold text-white">Дефиле</h3>
-              </div>
-            </Card>
-
-            <Card className="hover-lift overflow-hidden border-none shadow-lg">
-              <div className="relative h-64">
-                <img
-                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/89414f56-7c5c-44f9-9c95-36742eb66f8b.jpg"
-                  alt="Фотоконкурс"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-3xl font-bold text-white">Фотоконкурс</h3>
-              </div>
-            </Card>
-
-            <Card className="hover-lift overflow-hidden border-none shadow-lg">
-              <div className="relative h-64">
-                <img
-                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/021d5352-b4ca-448a-85f5-2a643368c584.jpg"
-                  alt="Креативный образ"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-3xl font-bold text-white">Креативный образ</h3>
-              </div>
-            </Card>
-
-            <Card className="hover-lift overflow-hidden border-none shadow-lg">
-              <div className="relative h-64">
-                <img
-                  src="https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/247cc373-8743-4573-a438-ec2b2e6aeebc.jpg"
-                  alt="Артистизм"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-3xl font-bold text-white">Артистизм</h3>
-              </div>
-            </Card>
+            {categories.map((category) => (
+              <Card key={category.id} className="hover-lift overflow-hidden border-none shadow-lg">
+                <div className="relative h-64">
+                  <img
+                    src={category.image_url}
+                    alt={category.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <h3 className="absolute bottom-4 left-4 text-3xl font-bold text-white">{category.title}</h3>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -208,19 +203,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16">Галерея звезд</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            {[
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/08a6ff31-5073-496c-acaa-1e33803966af.jpg',
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/4fac7335-00d9-4479-bc5f-caac87f86272.jpg',
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/64c7fa26-66af-43ac-a2b4-89b06b59afae.jpg',
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/f4607f9e-43b4-4926-9dc2-66d6d716718d.jpg',
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/82eb0d67-18c6-4ae0-8ebc-a970259af1cb.jpg',
-              'https://cdn.poehali.dev/projects/a34fa95b-f632-4d3f-9a49-39f40060ac60/files/7c43c9ba-1705-4a4f-8e31-f5cdda2b3613.jpg',
-            ].map((img, idx) => (
+            {gallery.map((img, idx) => (
               <div
-                key={idx}
+                key={img.id}
                 className="relative aspect-square overflow-hidden rounded-lg hover-lift cursor-pointer"
               >
-                <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
+                <img src={img.image_url} alt={img.title || `Gallery ${idx + 1}`} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>

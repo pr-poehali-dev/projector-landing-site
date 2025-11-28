@@ -1,0 +1,46 @@
+{
+  "tests": [
+    {
+      "name": "Get categories",
+      "method": "GET",
+      "path": "/?type=categories",
+      "expectedStatus": 200,
+      "expectedBody": [
+        {
+          "id": "number",
+          "title": "string",
+          "image_url": "string"
+        }
+      ],
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get gallery",
+      "method": "GET",
+      "path": "/?type=gallery",
+      "expectedStatus": 200,
+      "expectedBody": [
+        {
+          "id": "number",
+          "image_url": "string"
+        }
+      ],
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get reviews",
+      "method": "GET",
+      "path": "/?type=reviews",
+      "expectedStatus": 200,
+      "expectedBody": [
+        {
+          "id": "number",
+          "name": "string",
+          "text": "string",
+          "rating": "number"
+        }
+      ],
+      "bodyMatcher": "partial"
+    }
+  ]
+}

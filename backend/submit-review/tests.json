@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "Submit valid review",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тестовый участник",
+        "text": "Отличный конкурс!",
+        "rating": 5
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "success": true,
+        "message": "string",
+        "id": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Submit review without name",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "text": "Отзыв без имени"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

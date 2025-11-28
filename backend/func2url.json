@@ -1,4 +1,6 @@
 {
+  "get-data": "https://functions.poehali.dev/33f9ba55-b73d-4487-b00a-6243568e3d6d",
+  "submit-review": "https://functions.poehali.dev/26339bce-adb9-49c3-8c15-e8b63b711c66",
   "reviews": "https://functions.poehali.dev/bd7d04d0-fe1c-4852-89fa-16d1df6ab898",
   "applications": "https://functions.poehali.dev/fa394409-631e-4cf4-af38-ea49853be627",
   "contacts": "https://functions.poehali.dev/4340451b-bebd-479b-a18f-d2d2e28aee4e"

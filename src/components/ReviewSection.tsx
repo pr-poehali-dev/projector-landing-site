@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,10 +7,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
+interface Review {
+  id: number;
+  name: string;
+  text: string;
+  rating: number;
+}
+
 const ReviewSection = () => {
   const [reviewName, setReviewName] = useState('');
   const [reviewText, setReviewText] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  
+  useEffect(() => {
+    fetch('https://functions.poehali.dev/33f9ba55-b73d-4487-b00a-6243568e3d6d?type=reviews')
+      .then(res => res.json())
+      .then(data => setReviews(data))
+      .catch(err => console.error('Error loading reviews:', err));
+  }, []);
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,15 +35,15 @@ const ReviewSection = () => {
     }
 
     try {
-      const response = await fetch('https://functions.poehali.dev/bd7d04d0-fe1c-4852-89fa-16d1df6ab898', {
+      const response = await fetch('https://functions.poehali.dev/26339bce-adb9-49c3-8c15-e8b63b711c66', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: reviewName,
+          text: reviewText,
           rating: reviewRating,
-          reviewText,
         }),
       });
 
@@ -36,7 +51,7 @@ const ReviewSection = () => {
         throw new Error('Ошибка при отправке отзыва');
       }
 
-      toast.success('Спасибо за ваш отзыв!');
+      toast.success('Спасибо за ваш отзыв! Он будет опубликован после модерации.');
       setReviewName('');
       setReviewText('');
       setReviewRating(0);
@@ -54,47 +69,31 @@ const ReviewSection = () => {
         </p>
         
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
-          <Card className="border-none shadow-md bg-primary/5">
-            <CardContent className="p-8">
-              <div className="text-6xl text-primary/30 mb-4">"</div>
-              <p className="text-muted-foreground mb-6">
-                Организация конкурса прошла на высшем уровне! Все было продумано до мелочей.
-              </p>
-              <div>
-                <p className="font-semibold">Алексей Иванов</p>
-                <p className="text-sm text-muted-foreground">Директор компании</p>
-              </div>
-              <div className="text-6xl text-primary/30 text-right mt-4">"</div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-md bg-secondary/5">
-            <CardContent className="p-8">
-              <div className="text-6xl text-secondary/30 mb-4">"</div>
-              <p className="text-muted-foreground mb-6">
-                Большое спасибо за профессионализм и креативный подход!
-              </p>
-              <div>
-                <p className="font-semibold">Мария Смирнова</p>
-                <p className="text-sm text-muted-foreground">Участник конкурса</p>
-              </div>
-              <div className="text-6xl text-secondary/30 text-right mt-4">"</div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-md bg-primary/5">
-            <CardContent className="p-8">
-              <div className="text-6xl text-primary/30 mb-4">"</div>
-              <p className="text-muted-foreground mb-6">
-                Незабываемые эмоции и яркие впечатления! Команда КонкурсПрожектор - настоящие профессионалы своего дела.
-              </p>
-              <div>
-                <p className="font-semibold">Екатерина Петрова</p>
-                <p className="text-sm text-muted-foreground">Участник конкурса</p>
-              </div>
-              <div className="text-6xl text-primary/30 text-right mt-4">"</div>
-            </CardContent>
-          </Card>
+          {reviews.length > 0 ? reviews.map((review, idx) => (
+            <Card key={review.id} className={`border-none shadow-md ${idx % 2 === 0 ? 'bg-primary/5' : 'bg-secondary/5'}`}>
+              <CardContent className="p-8">
+                <div className={`text-6xl mb-4 ${idx % 2 === 0 ? 'text-primary/30' : 'text-secondary/30'}`}>"</div>
+                <p className="text-muted-foreground mb-6">
+                  {review.text}
+                </p>
+                <div>
+                  <p className="font-semibold">{review.name}</p>
+                  <div className="flex gap-1 mt-2">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Icon key={i} name="Star" size={16} className="fill-secondary text-secondary" />
+                    ))}
+                  </div>
+                </div>
+                <div className={`text-6xl text-right mt-4 ${idx % 2 === 0 ? 'text-primary/30' : 'text-secondary/30'}`}>"</div>
+              </CardContent>
+            </Card>
+          )) : (
+            <Card className="border-none shadow-md bg-primary/5">
+              <CardContent className="p-8">
+                <p className="text-center text-muted-foreground">Загрузка отзывов...</p>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <Card className="max-w-2xl mx-auto border-none shadow-xl">
